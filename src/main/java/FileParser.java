@@ -7,9 +7,9 @@ import java.nio.file.Path;
 
 public class FileParser {
     /**
-     *  param first: the path string
+     * divides the contents of {@param pathInput}
+     * into separate files for each sender to the {@param pathOutput} directory
      *
-     *  param two: the path string where to save the file
      * */
     public static void parserFile(Path pathInput, Path pathOutput) {
         try {
