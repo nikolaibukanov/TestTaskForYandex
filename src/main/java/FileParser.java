@@ -21,14 +21,21 @@ public class FileParser {
                      BufferedReader bufferedReader = new BufferedReader(reader)) {
                     BufferedWriter bufferedWriter = null;
                     String line;
+                    String email = "";
                     String lineSeparator = System.getProperty("line.separator");
                     while ((line = bufferedReader.readLine()) != null) {
                         if (line.startsWith("From ")) {
-                            closeBufferedWriter(bufferedWriter);
-                            bufferedWriter = new BufferedWriter(new FileWriter(new File(pathOutput.toString().
+                            String currentEmail = checkUser(line);
+                            if(!email.equals(currentEmail)) {
+                                closeBufferedWriter(bufferedWriter);
+                                bufferedWriter = new BufferedWriter(new FileWriter(new File(pathOutput.toString().
                                     concat(File.separator).concat(checkUser(line))),true));
+                                email = currentEmail;
+                            }
                         }
-                        bufferedWriter.write(line.concat(lineSeparator));
+                        if (bufferedWriter != null) {
+                            bufferedWriter.write(line.concat(lineSeparator))
+                        }
                     }
                     closeBufferedWriter(bufferedWriter);
                 }
